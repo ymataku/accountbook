@@ -1,0 +1,36 @@
+{
+  "development": {
+    
+    "operatorsAliases": false,
+    "use_env_variable": "DATABASE_URL",
+    "ssl": true,
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
+  },
+  "test": {
+    "operatorsAliases": false,
+    "use_env_variable": "DATABASE_URL",
+    "ssl": true,
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
+  },
+  "production": {
+    "operatorsAliases": false,
+    "use_env_variable": "DATABASE_URL",
+    "ssl": true,
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
+  }
+}
