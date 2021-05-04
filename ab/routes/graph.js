@@ -58,6 +58,7 @@ router.get('/graph/create/:year/:month/:day',(req,res,next)=>{
     var day = req.params.day * 1;
     var month = req.params.month * 1;
     var year = req.params.year * 1;
+    var check_sum = 0;
     db.date.findAll({
         where:{
             name:req.session.login.name,
@@ -74,11 +75,15 @@ router.get('/graph/create/:year/:month/:day',(req,res,next)=>{
         }
         if(sum == 0){
             sum = 1;
+            check_sum = 1;
         }
         for(var i in dat){
             sy.push((dat[i].amount/sum)*100);
             la.push(dat[i].label);
         }
+       if(check_sum == 1){
+           sum = 0;
+       }
         var data = {
             title:'Drow Graph Page',
             content:dat,
