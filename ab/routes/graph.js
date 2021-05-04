@@ -72,8 +72,11 @@ router.get('/graph/create/:year/:month/:day',(req,res,next)=>{
         for(var i in dat){
             sum += dat[i].amount;
         }
+        if(sum == 0){
+            sum = 1;
+        }
         for(var i in dat){
-            sy.push(dat[i].amount/sum*100);
+            sy.push((dat[i].amount/sum)*100);
             la.push(dat[i].label);
         }
         var data = {
