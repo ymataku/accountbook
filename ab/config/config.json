@@ -9,7 +9,7 @@
         "require": true,
         "rejectUnauthorized": false
       }
-    }
+    } 
   },
   "test": {
     "operatorsAliases": false,

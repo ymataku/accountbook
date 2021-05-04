@@ -4,13 +4,14 @@
 .apper{
         display:block;
     }
+   
     .side{
      
       box-sizing: border-box;
       top: 0px;
       right:0;
       height: 100%;
-      width: 420px;
+      width: 70%;
       position: fixed;
       overflow: auto;
       background: #eee;
@@ -18,16 +19,4 @@
       
 
         }
-    /* .side{
-     
-      box-sizing: border-box;
-      top:0;
-      height: 100%;
-      width: 420px;
-      position: fixed;
-      overflow: auto;
-      background: #eee;
-      padding: 20px;
-      animation:anim 1s;
-
-        } */
+   
