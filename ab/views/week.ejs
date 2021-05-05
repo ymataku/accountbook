@@ -9,7 +9,13 @@
     <title><%=title%></title>
 </head>
 <body class='container'>
-    <canvas id="myChart" ></canvas>
+    <header>
+        <h1 class='display-4'><%=title%></h1>
+    </header>
+    <div>
+        <h2 class='display-2'>合計：<%=sum%>円</h2>
+    </div>
+    <canvas id="myChart"></canvas>
     <script>
         var ctx = document.getElementById("myChart").getContext('2d');
         var i = 0;

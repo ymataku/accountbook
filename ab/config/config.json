@@ -1,6 +1,5 @@
 {
   "development": {
-    
     "operatorsAliases": false,
     "use_env_variable": "DATABASE_URL",
     "ssl": true,
@@ -9,7 +8,8 @@
         "require": true,
         "rejectUnauthorized": false
       }
-    } 
+    }
+   
   },
   "test": {
     "operatorsAliases": false,

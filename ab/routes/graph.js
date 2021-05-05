@@ -161,6 +161,7 @@ router.get('/graph/week/:year/:month/:day',(req,res,next)=>{
             var sum = 0;
             var date_list = [];
             var month_list = [];
+            var all = 0;
             for(var i in wk){
                 if(wk[i].month != month){
                     list.push({'year':year,'month':month,'day':date,'sum':sum});
@@ -190,11 +191,14 @@ router.get('/graph/week/:year/:month/:day',(req,res,next)=>{
                 final.push(list[i].sum);
             }
             var redate_list = [...new Set(date_list)]
-            
+            for(var i in final){
+                all += final[i] 
+            }
             var data = {
               title:'week sum amount',
               content:final,
-              date:date_list
+              date:date_list,
+              sum:all
           }
           res.render('week',data);
         }).catch(err=>{
