@@ -9,7 +9,6 @@
         "rejectUnauthorized": false
       }
     }
-   
   },
   "test": {
     "operatorsAliases": false,

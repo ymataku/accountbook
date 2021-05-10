@@ -120,9 +120,10 @@ router.get('/graph/home',(req,res,next)=>{
             result.push(redate_list[0]);
         }
     }
-    if(redate_list.length >= 7 ){
+    console.log(redate_list);
+    if(redate_list.length > 7 ){
     for(var i = 1 ;i <= parseInt(redate_list.length/7,10);i++){
-        result.push(redate_list[i*7-1]);
+        result.push(redate_list[i*7]);
     }
 }
         var data = {
@@ -151,7 +152,7 @@ router.get('/graph/week/:year/:month/:day',(req,res,next)=>{
             where:{
                 name:req.session.login.name,
                 day:{
-                    [Op.gt]:date - 1,
+                    [Op.gt]:date-1,
                     [Op.lt]:date + 7
                 }
             }

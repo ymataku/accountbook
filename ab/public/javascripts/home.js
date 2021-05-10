@@ -4,6 +4,23 @@ var X = document.getElementById('X');
 var p = document.querySelector('p');
 var menu = document.getElementById('menu');
 var container = document.getElementById("container");
+
+function change(id){
+    var categories,i;
+    categories = document.getElementsByClassName('category');
+    
+    for(i = 0;i < categories.length;i++){
+        var cat;
+        cat = categories[i];
+       
+        if(cat.id == id){
+            cat.className = "category show";
+        }else{
+            cat.className = 'category hidden';
+        }
+    }
+}
+
 hanber.addEventListener('click',function(){
     // hanber.classList.add("disapper");
     hanber.classList.add("disapper");
@@ -19,4 +36,9 @@ X.addEventListener('click',function(){
     menu.classList.add("disapper");
     container.style.opacity = "1.0"
 })
+
+
+
+
+
 

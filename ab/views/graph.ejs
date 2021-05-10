@@ -19,15 +19,17 @@
             <label for="yaer"> day: <input type="text" name='day' id='day' class='form-control' v-model='message3'></label>
            
         </div>
+        <div  id='app4'>
         <% for(var i = 1;i <= num;i++){%>
             <div class='form-group'>
                 <label for="expenditure">出費</label>
-                <input type="text" class='form-control' name='<%=i%>' id='%=i%>'>
+                <input type="text" class='form-control' name='<%=i%>' id='<%=i%>'>
                 <label for="money">値段</label>
-                <input type="text" class='form-control' name='<%=i%>' id='%=i%>'>
+                <input type="text" class='form-control' name='<%=i%>' id='<%=i%>'>
 
             </div>
         <%}%>
+        </div>
         <input type="submit" class='btn btn-primary' value='create'>
     </form>
     <div class='pagination justify-content-center'>
