@@ -23,4 +23,13 @@
   div.hidden {
           display: none;
          }
-   
+        
+  div.show{
+    animation: slide 1s;
+    
+  }
+
+  @keyframes slide{
+    0%{margin-top:20%;opacity:0}
+    100%{margin-top:0%;opacity:1.0}
+  }

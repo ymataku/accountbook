@@ -104,9 +104,13 @@ router.get('/graph/home',(req,res,next)=>{
         }
     }).then(dat=>{
         var date_list = [];
+        var month_list = [];
         for(var i in dat){
             date_list.push({'year':dat[i].year,'month':dat[i].month,'day':dat[i].day});
         } 
+        for(var i in dat){
+            month_list.push({'year':dat[i].year,'month':dat[i].month});
+        }
      var redate_list = date_list.filter((element, index, self) => 
                             self.findIndex(e => 
                                            e.year === element.year &&
@@ -114,21 +118,44 @@ router.get('/graph/home',(req,res,next)=>{
                                            e.day ==element.day
                                           ) === index
                             );
+
+    var remonth_list = month_list.filter((element,index,self)=>
+                                    self.findIndex(e =>
+                                            e.year === element.year&&
+                                            e.month === element.month
+                                            ) === index
+    );
+
+
         var result = [];
+        var result_month = [];
+      
     if(dat.length !=0){
         if(result.length==0){
             result.push(redate_list[0]);
         }
     }
-    console.log(redate_list);
+    
     if(redate_list.length > 7 ){
     for(var i = 1 ;i <= parseInt(redate_list.length/7,10);i++){
         result.push(redate_list[i*7]);
     }
 }
+    if(redate_list.length < 30){
+        result_month.push(redate_list[0]);
+       
+    }
+    if(redate_list.length > 30){
+        for(var i = 1;i <= parseInt(redate_list.length/30);i++){
+            result_month.push(redate_list[i*30]);
+            
+        }
+    }
+   
         var data = {
             title:'Home',
             content:redate_list,
+            month:result_month,
             junp:result
         }
         res.render('home',data);
@@ -209,6 +236,94 @@ router.get('/graph/week/:year/:month/:day',(req,res,next)=>{
             }
             res.render('error',data);
         })    
+})
+router.get('/graph/month/:year/:month/:day',(req,res,next)=>{
+    
+    var year = req.params.year * 1;
+    var month = req.params.month * 1;
+    var date = req.params.day * 1;
+    
+    db.date.findAll({
+        where:{
+            year:year,
+            month:{
+                [Op.gt]:month - 1,
+                [Op.lt]:month + 2
+            },
+            
+          
+        }
+    }).then(dat=>{
+        
+        var label = ['第一','第二','第三','第四','第五']
+        var sum_thismonth = [];
+        var redate = [];
+        var sum = 0;
+        var long = 0;
+        var count = 0;
+        var check = 0;
+     
+        for(var i in dat){
+            if(dat[i].month ==month && dat[i].day >= date){
+                redate.push(dat[i].amount);
+                
+            }if(dat[i].month != month){
+                redate.push(dat[i].amount);
+                
+            }
+            
+        }
+        long = parseInt(redate.length/7);
+        
+        for(var l = 0;l < long;l++){
+            
+        for(var i = 0;i < 7; i++){
+        
+            count += 1;
+            sum += redate[7*l + i];
+            
+            if(i == 6){
+                sum_thismonth.push(sum);
+                sum = 0;
+            }else if(count == 30){
+                sum_thismonth.push(sum);
+                break;
+                check = 1;
+            }
+        }
+        if(check == 1){
+            break;
+        }
+        
+    }
+
+     if(sum_thismonth.length < 5){
+        var l = sum_thismonth.length;
+    for(var i = 0; i < 5 - l;i++){
+        sum_thismonth.push(0);
+    }
+
+     }
+     for(var i in sum_thismonth){
+         sum += sum_thismonth[i];
+     }
+     
+        var data = {
+            title:'amount of month',
+            label:label,
+            money:sum_thismonth,
+            sum:sum
+
+        }
+        res.render('month',data);
+    }).catch(err=>{
+        var data = {
+            message:'err',
+            error:err
+        }
+        res.render('error',data);
+    })
+   
 })
 
 router.get('/graph/destroy',(req,res,next)=>{

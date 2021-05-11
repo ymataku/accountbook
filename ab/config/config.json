@@ -1,14 +1,8 @@
 {
   "development": {
-    "operatorsAliases": false,
-    "use_env_variable": "DATABASE_URL",
-    "ssl": true,
-    "dialectOptions": {
-      "ssl": {
-        "require": true,
-        "rejectUnauthorized": false
-      }
-    }
+    "database":"development-database",
+    "dialect":"sqlite",
+    "storage":"dev-database.sqlite3"
   },
   "test": {
     "operatorsAliases": false,

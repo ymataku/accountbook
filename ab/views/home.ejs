@@ -28,6 +28,8 @@
             <button class = 'col btn btn-light' onclick = "change('oneday')" style = 'margin: 5%;'>oneday</button>
             
             <button class = 'col btn btn-light' onclick = "change('week')" style = 'margin: 5%;'>week</button>
+
+            <button class = 'col btn btn-light' onclick = "change('month')" style = 'margin: 5%;'>month</button>
             
         </div>
 
@@ -54,6 +56,17 @@
             <th><a href="/graph/week/<%=junp[i].year%>/<%=junp[i].month%>/<%=junp[i].day%>"><%=junp[i].year%>,<%=junp[i].month%>,<%=junp[i].day%>から一週間のデータ</a></th>
         </tr>
     <%}%>
+    </table>
+</div>
+<div id='month' class = 'category hidden'>
+    
+    <h3 class='display-4'>Month from start</h3>
+    <table>
+        <% for(var i in month){%>
+        <tr>
+            <th><a href="/graph/month/<%=month[i].year%>/<%=month[i].month%>/<%=month[i].day%>"><%=month[i].year%>/<%=month[i].month%>/<%=month[i].day%>から一カ月</a></th>
+        </tr>
+        <%}%>
     </table>
 </div>
 </div>
