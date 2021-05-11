@@ -140,6 +140,7 @@ router.get('/graph/home',(req,res,next)=>{
     for(var i = 1 ;i <= parseInt(redate_list.length/7,10);i++){
         result.push(redate_list[i*7]);
     }
+    
 }
     if(redate_list.length < 30){
         result_month.push(redate_list[0]);
@@ -176,44 +177,76 @@ router.get('/graph/week/:year/:month/:day',(req,res,next)=>{
         var date = req.params.day * 1;
         
         db.date.findAll({
+            order:[
+                ['month','ASC'],
+                ['day','ASC']
+            ],
             where:{
                 name:req.session.login.name,
-                day:{
-                    [Op.gt]:date-1,
-                    [Op.lt]:date + 7
+                month:{
+                    [Op.gt]:month - 1,
+                    [Op.lt]:month + 2,
                 }
+                
+            
             }
+                    
         }).then(wk=>{
+          
             var list = [];
+            var pre_list = [];
             var k = 0;
             var sum = 0;
             var date_list = [];
             var month_list = [];
             var all = 0;
+           var month_sub = month;
+           var date_sub = date;
+           
             for(var i in wk){
+                
                 if(wk[i].month != month){
-                    list.push({'year':year,'month':month,'day':date,'sum':sum});
+                    
+                    month++;
+                    date = 1;
+                }
+                if(wk[i].day >= date){
+                    pre_list.push({'year':year,'month':wk[i].month,'day':wk[i].day,'amount':wk[i].amount})
+                }
+                
+            }
+           
+            month = month_sub;
+            date = date_sub;
+            // console.log(pre_list[0].amount);
+            for(var i in pre_list){
+              
+              
+                if(pre_list[i].month != month){
+                   
+                    list.push({'year':pre_list[i - 1].year,'month':pre_list[i - 1].day,'day':pre_list[i - 1].day,'sum':sum});
+                    
                     month = month + 1;
                     date = 1;
                     sum = 0;
                 }
-                if(wk[i].day != date){
-                    
-                    list.push({'year':year,'month':month,'day':date,'sum':sum});
+                if(pre_list[i].day != date){
+                    list.push({'year':pre_list[i - 1].year,'month':pre_list[i - 1].month,'day':pre_list[i - 1].day,'sum':sum});
                     date += 1;
                     sum = 0;
-                   
                 }
-                
-                sum += wk[i].amount;
-                
+                if(list.length == 7){
+                    break;
+                }
+                sum += pre_list[i].amount;
             }
-            list.push({'year':year,'month':month,'day':date,'sum':sum});
-            
+            if(list.length < 7){
+                list.push({'year':pre_list[pre_list.length - 1].year,'month':pre_list[pre_list.length - 1].month,'day':pre_list[pre_list.length - 1].day,'sum':sum});
+            }
             for(var i in list){
                 date_list.push(list[i].month+'月'+list[i].day+'日');
             }
-           
+            console.log(list);
             var final = []
             for(var i in list){
                 final.push(list[i].sum);
@@ -244,6 +277,10 @@ router.get('/graph/month/:year/:month/:day',(req,res,next)=>{
     var date = req.params.day * 1;
     
     db.date.findAll({
+        order:[
+            ['month','ASC'],
+            ['day','ASC']
+        ],
         where:{
             year:year,
             month:{
@@ -258,29 +295,47 @@ router.get('/graph/month/:year/:month/:day',(req,res,next)=>{
         var label = ['第一','第二','第三','第四','第五']
         var sum_thismonth = [];
         var redate = [];
+        var rr_date = [];
         var sum = 0;
         var long = 0;
         var count = 0;
         var check = 0;
      
         for(var i in dat){
-            if(dat[i].month ==month && dat[i].day >= date){
-                redate.push(dat[i].amount);
+            if(dat[i].month != month){
+              
+                month++; 
+                date = 1
                 
-            }if(dat[i].month != month){
-                redate.push(dat[i].amount);
+            }
+            
+
+            if(dat[i].day >= date){
+                redate.push({'month':dat[i].month,'day':dat[i].day,'sum':dat[i].amount});
                 
             }
             
         }
-        long = parseInt(redate.length/7);
+        for(var i = 0;i < redate.length - 1;i++){
+            if(redate[i].day == redate[i+1].day){
+                var sub = redate[i].sum + redate[i+1].sum;
+                rr_date.push(sub);
+                i++;
+                continue;
+
+            }
+            rr_date.push(redate[i].sum)
+            
+        }
+        console.log(rr_date.length);
+        long = parseInt(rr_date.length/7);
         
         for(var l = 0;l < long;l++){
             
         for(var i = 0;i < 7; i++){
         
             count += 1;
-            sum += redate[7*l + i];
+            sum += rr_date[7*l + i];
             
             if(i == 6){
                 sum_thismonth.push(sum);
