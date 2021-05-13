@@ -26,6 +26,12 @@ router.post('/login',(req,res,next)=>{
             }
             res.render('login',data);
         }
+    }).catch(err =>{
+        var data = {
+            message:'error',
+            error:err
+        }
+        res.render('error',data);
     })
 })
 

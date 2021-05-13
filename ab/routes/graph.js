@@ -135,24 +135,35 @@ router.get('/graph/home',(req,res,next)=>{
             result.push(redate_list[0]);
         }
     }
+    var long = parseInt(redate_list.length/7,10);
     
     if(redate_list.length > 7 ){
     for(var i = 1 ;i <= parseInt(redate_list.length/7,10);i++){
         result.push(redate_list[i*7]);
+       
+
     }
     
+    
+    
 }
-    if(redate_list.length < 30){
-        result_month.push(redate_list[0]);
+    // if(redate_list.length < 30){
+    //     result_month.push(redate_list[0]);
        
-    }
+    // }
     if(redate_list.length > 30){
         for(var i = 1;i <= parseInt(redate_list.length/30);i++){
             result_month.push(redate_list[i*30]);
             
         }
     }
-   
+    
+    if(redate_list.length % 7 == 0 || redate_list.length % 30 == 0){
+        result.pop();
+        
+        
+    }
+   console.log(result_month);
         var data = {
             title:'Home',
             content:redate_list,
@@ -246,12 +257,13 @@ router.get('/graph/week/:year/:month/:day',(req,res,next)=>{
             for(var i in list){
                 date_list.push(list[i].month+'月'+list[i].day+'日');
             }
-            console.log(list);
+            
             var final = []
             for(var i in list){
                 final.push(list[i].sum);
             }
             var redate_list = [...new Set(date_list)]
+           
             for(var i in final){
                 all += final[i] 
             }
@@ -305,38 +317,31 @@ router.get('/graph/month/:year/:month/:day',(req,res,next)=>{
             if(dat[i].month != month){
               
                 month++; 
-                date = 1
-                
+                date = 1;
             }
-            
-
             if(dat[i].day >= date){
-                redate.push({'month':dat[i].month,'day':dat[i].day,'sum':dat[i].amount});
-                
+                redate.push({'month':dat[i].month,'day':dat[i].day,'sum':dat[i].amount});   
             }
-            
         }
+        var sub = 0;
+        console.log(redate);
         for(var i = 0;i < redate.length - 1;i++){
-            if(redate[i].day == redate[i+1].day){
-                var sub = redate[i].sum + redate[i+1].sum;
+            if(redate[i] != redate[i+1]){
                 rr_date.push(sub);
-                i++;
-                continue;
-
+                rr_date.push(redate[i].sum);
+                sub = 0;
+            }else if(redate[i].day == redate[i+1].day){
+                 sub = sub + redate[i].sum + redate[i+1].sum;
+                 i++;
             }
-            rr_date.push(redate[i].sum)
-            
+           
         }
-        console.log(rr_date.length);
+      console.log(rr_date);
         long = parseInt(rr_date.length/7);
-        
         for(var l = 0;l < long;l++){
-            
         for(var i = 0;i < 7; i++){
-        
             count += 1;
             sum += rr_date[7*l + i];
-            
             if(i == 6){
                 sum_thismonth.push(sum);
                 sum = 0;
