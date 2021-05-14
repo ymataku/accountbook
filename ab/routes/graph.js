@@ -147,22 +147,20 @@ router.get('/graph/home',(req,res,next)=>{
     
     
 }
-    // if(redate_list.length < 30){
-    //     result_month.push(redate_list[0]);
-       
-    // }
+    
     if(redate_list.length > 30){
         for(var i = 1;i <= parseInt(redate_list.length/30);i++){
-            result_month.push(redate_list[i*30]);
-            
+            result_month.push(redate_list[i*30]);   
         }
+    }else if(redate_list.length < 30){
+        result_month.push(redate_list[0]);
     }
     
     if(redate_list.length % 7 == 0 || redate_list.length % 30 == 0){
-        result.pop();
-        
-        
+        result.pop();   
     }
+    console.log(result);
+    console.log(redate_list);
    console.log(result_month);
         var data = {
             title:'Home',
@@ -198,12 +196,8 @@ router.get('/graph/week/:year/:month/:day',(req,res,next)=>{
                     [Op.gt]:month - 1,
                     [Op.lt]:month + 2,
                 }
-                
-            
-            }
-                    
+            }          
         }).then(wk=>{
-          
             var list = [];
             var pre_list = [];
             var k = 0;
@@ -211,9 +205,8 @@ router.get('/graph/week/:year/:month/:day',(req,res,next)=>{
             var date_list = [];
             var month_list = [];
             var all = 0;
-           var month_sub = month;
-           var date_sub = date;
-           
+            var month_sub = month;
+            var date_sub = date;
             for(var i in wk){
                 
                 if(wk[i].month != month){
@@ -324,19 +317,16 @@ router.get('/graph/month/:year/:month/:day',(req,res,next)=>{
             }
         }
         var sub = 0;
-        console.log(redate);
         for(var i = 0;i < redate.length - 1;i++){
-            if(redate[i] != redate[i+1]){
-                rr_date.push(sub);
-                rr_date.push(redate[i].sum);
-                sub = 0;
-            }else if(redate[i].day == redate[i+1].day){
-                 sub = sub + redate[i].sum + redate[i+1].sum;
-                 i++;
+            var n = i;
+            while(redate[i].day == redate[n].day){
+                sub += redate[n].sum
+                n++
             }
-           
+            i = n - 1;
+            rr_date.push(sub);
+            sub = 0;
         }
-      console.log(rr_date);
         long = parseInt(rr_date.length/7);
         for(var l = 0;l < long;l++){
         for(var i = 0;i < 7; i++){
@@ -353,27 +343,34 @@ router.get('/graph/month/:year/:month/:day',(req,res,next)=>{
         }
         if(check == 1){
             break;
-        }
-        
+        }   
     }
-
+    var all = 0;
+    var LG = long*7;
+   
+    if(sum_thismonth % 7 !== 0){
+        
+        for(var i = LG-1;i < rr_date.length;i++){
+            all += rr_date[i];
+             
+            
+        }
+        sum_thismonth.push(all);
+    }
      if(sum_thismonth.length < 5){
         var l = sum_thismonth.length;
     for(var i = 0; i < 5 - l;i++){
         sum_thismonth.push(0);
     }
-
      }
      for(var i in sum_thismonth){
          sum += sum_thismonth[i];
      }
-     
         var data = {
             title:'amount of month',
             label:label,
             money:sum_thismonth,
             sum:sum
-
         }
         res.render('month',data);
     }).catch(err=>{
@@ -382,14 +379,11 @@ router.get('/graph/month/:year/:month/:day',(req,res,next)=>{
             error:err
         }
         res.render('error',data);
-    })
-   
+    }) 
 })
-
 router.get('/graph/destroy',(req,res,next)=>{
     var data = {
         title:'Delete page',
-
     }
     res.render('delete',data);
 })
@@ -405,11 +399,8 @@ router.post('/graph/destroy',(req,res,next)=>{
             day:day[2]
         }
     }).then(()=>{
-     
     })
     res.redirect('/graph/home');
-
-
 })
 
 router.get('/graph/show',(req,res,next)=>{
