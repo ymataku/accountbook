@@ -5,7 +5,7 @@ const {Op} = require('sequelize');
 
 router.get('/login',(req,res,next)=>{
     var data = {
-        title:'login page',
+        title:'ログイン',
         
     }
     res.render('login',data);
@@ -23,7 +23,7 @@ router.post('/login',(req,res,next)=>{
             res.redirect('/');
         }else{
             var data = {
-                title:'Try again'
+                title:'入力にミスがありました'
             }
             res.render('login',data);
         }
@@ -32,7 +32,7 @@ router.post('/login',(req,res,next)=>{
 
 router.get('/create',(req,res,next)=>{
     var data = {
-        title: 'acount create page',
+        title: 'アカウント作成',
     }
     res.render('acount',data);
 })
