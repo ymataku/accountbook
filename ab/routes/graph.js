@@ -385,7 +385,7 @@ const {Op} = require('sequelize');
         })
         router.get('/graph/destroy',(req,res,next)=>{
             var data = {
-                title:'Delete page',
+                title:'削除ページ',
             }
             res.render('delete',data);
         })

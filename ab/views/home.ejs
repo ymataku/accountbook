@@ -34,7 +34,7 @@
         </div>
 
 <div id='oneday' class = 'category hidden'>
-    <h3 class='display-4'>One day</h3>
+    <h3 class='display-4'>家計簿</h3>
     <table class='table'>
        
         <% for(var i in content){%>
@@ -49,7 +49,7 @@
 
 
 <div id='week' class = 'category show'>
-    <h3 class='display-4'>Week from start</h3>
+    <h3 class='display-4'>一週間の家計簿</h3>
     <table class = "table">
        <% for(var i in junp){%>
         <tr>
@@ -60,7 +60,7 @@
 </div>
 <div id='month' class = 'category hidden'>
     
-    <h3 class='display-4'>Month from start</h3>
+    <h3 class='display-4'>一カ月の家計簿</h3>
     <table>
         <% for(var i in month){%>
         <tr>
@@ -75,10 +75,10 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-x disapper" viewBox="0 0 16 16" id='X'>
                 <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
             </svg>
-            <a href="/graph/destroy" class='page-link' style="margin: 5%;">destroy page</a>
-            <a href="/add" class='page-link'  style="margin: 5%;">add new</a>
-            <a href="/user/login" class='page-link'  style="margin: 5%;">login page</a>
-            <a href="/user/create" class='page-link'  style="margin: 5%;">create acount</a>
+            <a href="/graph/destroy" class='page-link' style="margin: 5%;">データの削除</a>
+            <a href="/add" class='page-link'  style="margin: 5%;">家計簿の追加</a>
+            <a href="/user/login" class='page-link'  style="margin: 5%;">ログイン</a>
+            <a href="/user/create" class='page-link'  style="margin: 5%;">アカウント作成</a>
         </div>
        
         <script src="https://cdn.jsdelivr.net/npm/vue"></script> 
