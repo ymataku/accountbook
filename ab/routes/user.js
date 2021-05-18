@@ -10,6 +10,7 @@ router.get('/login',(req,res,next)=>{
     }
     res.render('login',data);
 })
+
 router.post('/login',(req,res,next)=>{
     db.user.findOne({
         where:{
@@ -32,11 +33,10 @@ router.post('/login',(req,res,next)=>{
 router.get('/create',(req,res,next)=>{
     var data = {
         title: 'acount create page',
-        
     }
     res.render('acount',data);
-
 })
+
 router.post('/create',(req,res,next)=>{
     db.user.create({
         name:req.body.name,
