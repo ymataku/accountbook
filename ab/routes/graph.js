@@ -23,7 +23,7 @@ const {Op} = require('sequelize');
             
             var num = req.params.num * 1;
             var data = {
-                title:'graph source page',
+                title:'今日の出費',
                 num : num
             }
             res.render('graph',data)
@@ -33,7 +33,7 @@ const {Op} = require('sequelize');
             for(var i = 1;i <= (Object.keys(req.body).length - 3);i++){
                 if(req.body[i][0] == ''){
                     var data = {
-                        title:"plese sigh up all colum",
+                        title:"全ての欄を埋めてください",
                         num:num,
                     }
                     res.render('graph',data);
@@ -85,7 +85,7 @@ const {Op} = require('sequelize');
                 sum = 0;
             }
                 var data = {
-                    title:'Drow Graph Page',
+                    title:'今日の合計',
                     content:dat,
                     label:item_name,
                     data:parcent,
@@ -247,7 +247,7 @@ const {Op} = require('sequelize');
                         total += content[i] 
                     }
                     var data = {
-                    title:'week sum amount',
+                    title:'一週間の合計',
                     content:content,
                     date:date_list,
                     sum:total
@@ -349,12 +349,7 @@ const {Op} = require('sequelize');
                 break;
                 }   
             }
-        //     if(rr_date.length % 7!=0){
-        //     for(var n = 0;n < rr_date.length - long * 7;n++){
-        //         sum += rr_date[7*long+n]; 
-        //     }
-        //     sum_thismonth.push(sum);
-        // }
+    
             var total = 0;
             var LG = long * 7;
             if(rr_date.length % 7 != 0){
@@ -374,7 +369,7 @@ const {Op} = require('sequelize');
             }
         
                 var data = {
-                    title:'amount of month',
+                    title:'今月の合計',
                     label:label,
                     money:sum_thismonth,
                     sum:sum
@@ -419,7 +414,7 @@ const {Op} = require('sequelize');
                 }
             }).then(dat=>{
                 var data = {
-                    title:'data show page',
+                    title:'確認用ページ',
                     content:dat,
                     num:pg
                 }
