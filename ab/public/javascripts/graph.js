@@ -8,7 +8,7 @@ var app3 = new Vue({
     
     data:{
         message:year,
-        message2:month,
+        message2:month + 1,
         message3:day,
 
     }
