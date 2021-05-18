@@ -14,10 +14,12 @@
     <form action="/user/create" method='post'>
         <div class='form-group'>
             <label for="name">NAME</label>
+            <p class='text-warning'>名前を入力してください</p>
             <input type="text" class='form-control' name='name' id='name'>
         </div>
         <div class='form-group'>
             <label for="pass">PASS</label>
+            <p class='text-warning'>整数を入力してください</p>
             <input type="text" class='form-control' name='pass' id='pass'>
         </div>
         <input type="submit" class='btn btn-primary' value='create'>
