@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models/index');
 const {Op} = require('sequelize');
-
-
         function check(req,res){
             if(req.session.login == null){
                 res.redirect('/user/login');
@@ -12,7 +10,6 @@ const {Op} = require('sequelize');
                 return false;
             }
         }
-
         router.get('/',(req,res,next)=>{
             res.redirect('/graph/home');
         })
@@ -20,7 +17,6 @@ const {Op} = require('sequelize');
             res.redirect('add/1');
         })
         router.get('/add/:num',(req,res,next)=>{
-            
             var num = req.params.num * 1;
             var data = {
                 title:'今日の出費',
@@ -40,7 +36,6 @@ const {Op} = require('sequelize');
                     res.redirect('/add/'+num);
                 }
             }
-            
             for(var i = 1;i <=num;i++){
                 db.date.create({
                     name:req.session.login.name,
@@ -262,11 +257,9 @@ const {Op} = require('sequelize');
                 })    
         })
         router.get('/graph/month/:year/:month/:day',(req,res,next)=>{
-            
             var year = req.params.year * 1;
             var month = req.params.month * 1;
             var date = req.params.day * 1;
-            
             db.date.findAll({
                 order:[
                     ['month','ASC'],

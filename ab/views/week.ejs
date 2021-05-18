@@ -25,17 +25,11 @@
         var t='<%=content%>';
         var p = t.split(',');
         var tr = p.map(Number);
-        
-         
-        
         var myChart = new Chart(ctx,{
             
             type: 'bar',
             data: {
-               
                 labels: ary,
-               
-                
                 datasets: [{
                     label: "スコア",
                     data: tr,

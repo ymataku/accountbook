@@ -12,7 +12,6 @@ function change(id){
     for(i = 0;i < categories.length;i++){
         var cat;
         cat = categories[i];
-       
         if(cat.id == id){
             cat.className = "category show";
         }else{
@@ -20,15 +19,11 @@ function change(id){
         }
     }
 }
-
 hanber.addEventListener('click',function(){
-    // hanber.classList.add("disapper");
     hanber.classList.add("disapper");
     X.classList.remove("disapper");
     menu.classList.remove('disapper');
     container.style.opacity = "0.1"
-    // console.log('hello');
-
 })
 X.addEventListener('click',function(){
     X.classList.add("disapper");
