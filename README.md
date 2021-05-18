@@ -5,6 +5,7 @@
 記録したデータの合計を出すのはもちろんですが、そこから、
 それぞれ何に使ったかのパーセンテージを出しグラフを作成します。
 ## 使い方
+言語はjavascriptを使用しました。環境はnode.jsでフレームワークはexpressを使いました。
 * npx sequelize-cli db:migrage --env development 
 -ローカル環境でアプリを動かすためのデータベースを作成します。
 * npm start 
